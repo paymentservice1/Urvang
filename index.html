@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pay to Urvang</title>
+<style>
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {opacity: 1;}
+  20%, 24%, 55% {opacity: 0.3;}
+}
+@keyframes pulseGlow {
+  0%, 100% {text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000;}
+  50% {text-shadow: 0 0 30px #ff3333, 0 0 60px #ff0000;}
+}
+@keyframes bgFlow {
+  0% {background-position: 0% 0%;}
+  100% {background-position: 400% 0%;}
+}
+@keyframes scanLight {
+  0% {transform: translateY(-100%);}
+  100% {transform: translateY(100%);}
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(270deg, #000, #110000, #000, #1a0000);
+  background-size: 400% 400%;
+  animation: bgFlow 12s ease infinite;
+  color: #ff0000;
+  font-family: "Courier New", monospace;
+  text-align: center;
+  padding: 40px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
+.glitch {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    transparent 0px,
+    rgba(255, 0, 0, 0.03) 1px,
+    transparent 2px
+  );
+  mix-blend-mode: color-dodge;
+  animation: glitchMove 0.15s infinite;
+  pointer-events: none;
+}
+@keyframes glitchMove {
+  0% {transform: translate(0, 0);}
+  20% {transform: translate(2px, -1px);}
+  40% {transform: translate(-2px, 1px);}
+  60% {transform: translate(1px, 2px);}
+  80% {transform: translate(-1px, -1px);}
+  100% {transform: translate(0, 0);}
+}
+
+h1 {
+  font-size: 50px;
+  letter-spacing: 3px;
+  animation: flicker 1s infinite, pulseGlow 2.5s infinite;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.container {
+  position: relative;
+  display: inline-block;
+  background: rgba(15, 0, 0, 0.85);
+  border: 2px solid #ff0000;
+  border-radius: 15px;
+  padding: 35px 45px;
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+  max-width: 380px;
+  overflow: hidden;
+}
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(transparent, rgba(255,0,0,0.2), transparent);
+  animation: scanLight 2.5s linear infinite;
+  pointer-events: none;
+}
+
+.qr {
+  width: 240px;
+  height: 240px;
+  margin: 25px 0;
+  border-radius: 8px;
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000 inset;
+  transition: 0.3s;
+}
+.qr:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #ff3333, 0 0 40px #ff0000 inset;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  background: #150000;
+  color: #ff0000;
+  border: 1px solid #ff0000;
+  border-radius: 6px;
+  padding: 12px 0;
+  margin: 12px 0;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+  transition: all 0.2s ease-in-out;
+}
+.btn:hover {
+  background: #ff0000;
+  color: #000;
+  box-shadow: 0 0 25px #ff0000, 0 0 50px #ff0000;
+  transform: scale(1.05);
+}
+
+.footer {
+  margin-top: 25px;
+  color: #777;
+  font-size: 13px;
+}
+
+.developer {
+  margin-top: 12px;
+  color: #ff0000;
+  font-size: 12px;
+}
+
+.trail {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: #ff0000;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.7;
+  filter: blur(2px);
+  transition: transform 0.1s linear;
+}
+</style>
+</head>
+<body>
+
+<div class="glitch"></div>
+
+<h1>Pay to Urvang</h1>
+
+<div class="container">
+  <p style="color:#fff;">Step 1: Screenshot this QR</p>
+  <img src="https://i.ibb.co/jZsGXYCJ/6a4aeabc-03b8-4241-95c5-b467eb08bb57.jpg" alt="UPI QR" class="qr">
+  <p style="color:#fff;">Step 2: Tap your UPI app to open it</p>
+
+  <a href="intent://upi#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" class="btn">Google Pay</a>
+  <a href="intent://upi#Intent;scheme=upi;package=com.phonepe.app;end" class="btn">PhonePe</a>
+  <a href="intent://upi#Intent;scheme=upi;package=net.one97.paytm;end" class="btn">Paytm</a>
+  <a href="intent://upi#Intent;scheme=upi;package=in.org.npci.upiapp;end" class="btn">BHIM</a>
+  <a href="upi://pay" class="btn">Generic UPI App</a>
+</div>
+
+<p class="footer">⚡ Screenshot • Open App • Pay Instantly ⚡</p>
+<p class="developer">Developed by Tanishq</p>
+
+<script>
+document.addEventListener("mousemove", function(e) {
+  let trail = document.createElement("div");
+  trail.className = "trail";
+  trail.style.left = e.pageX + "px";
+  trail.style.top = e.pageY + "px";
+  document.body.appendChild(trail);
+  setTimeout(() => {
+    trail.style.opacity = 0;
+    setTimeout(() => trail.remove(), 300);
+  }, 100);
+});
+</script>
+
+</body>
+</html>
